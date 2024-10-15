@@ -1,0 +1,24 @@
+<div id="deleteModal" class="modal fade" tabindex="-1" xmlns:th="http://thymeleaf.org" th:fragment="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/}" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="id" value="">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmar exclusão</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir o registro?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input type="submit" class="btn btn-danger" value="Excluir">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
