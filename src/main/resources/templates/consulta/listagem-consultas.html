@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Listagem de Consultas</title>
+</head>
+
+<body>
+<div layout:fragment="conteudo">
+    <main class="container">
+        <section class="card">
+            <h2 class="title">Listagem de consultas</h2>
+
+            <div class="table-controls">
+                <a href="formulario-consulta.html" th:href="@{/consultas/formulario}" class="btn btn-tertiary">
+                    <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Ícone de adicionar" class="btn-icon">
+                    Nova consulta
+                </a>
+            </div>
+
+            <table class="tabela">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>CPF</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="consulta: ${consultas}">
+                    <td th:text="${consulta.medico}"></td>
+                    <td th:text="${consulta.paciente}"></td>
+                    <td th:text="${#temporals.format(consulta.data, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td  th:text="${consulta.especialidade}"></td>
+                    <td>
+                        <a href="#" class="btn btn-icon" th:href="@{/medicos/formulario?id={id}(id=${consulta.id})}" title="Editar">
+                            <img src="/static/assets/edit.svg" th:src="@{/assets/edit.svg}" alt="Editar">
+                        </a>
+                        <a href="#deleteModal" class="btn btn-icon" data-toggle="modal" th:data-id="${consulta.id}" data-url="/consultas" title="Excluir">
+                            <img src="/static/assets/delete.svg" th:src="@{/assets/delete.svg}" alt="Excluir">
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:replace="~{componentes/_paginacao.html :: paginacao(url = 'medicos', registros = ${consultas})}"></div>
+        </section>
+    </main>
+
+    <div th:replace="~{componentes/_modal_excluir.html :: modal}"></div>
+</div>
+</body>
+</html>
