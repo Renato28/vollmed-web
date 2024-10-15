@@ -1,4 +1,4 @@
-package med.voll.vollmed_web.domain;
+package med.voll.vollmed_web.domain.medico;
 
 import jakarta.persistence.*;
 
