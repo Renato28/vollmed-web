@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Voll.med</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../static/assets/logo.png" th:href="@{/assets/logo.png}">
+    <link rel="stylesheet" href="../static/css/estilos.css" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="~{componentes/_menu.html :: menu}" sec:authorize="isAuthenticated()"></div>
+
+    <div class="container">
+        <div th:replace="~{componentes/_mensagens.html :: mensagens}" th:remove="tag"></div>
+    </div>
+
+    <div layout:fragment="conteudo" th:remove="tag"></div>
+
+    <div class="footer" id="rodape" th:replace="~{componentes/_footer.html :: footer}"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+</body>
+</html>
