@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("medicos")
 public class MedicoController {
 
     private static final String PAGINA_LISTAGEM = "medico/listagem-medicos";
