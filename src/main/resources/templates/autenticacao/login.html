@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Login</title>
+</head>
+
+<body>
+<div layout:fragment="conteudo">
+    <main class="container">
+        <section class="card form-card">
+            <h2 class="title">Login</h2>
+
+            <form method="post" action="#" th:action="@{/login}">
+                <div class="alert alert-danger text-center text-uppercase" th:if="${param.error != null}">
+                    <p>
+                        <strong>Dados inválidos!</strong>
+                    </p>
+                </div>
+
+                <div class="alert alert-danger text-center text-uppercase" th:if="${param.logout != null}">
+                    <p>
+                        <strong>Você saiu da aplicação!</strong>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="required">Email:</label>
+                    <input id="username" name="username" type="email" class="form-control" required="required">
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="required">Senha:</label>
+                    <input id="password" name="password" type="password" class="form-control" required="required">
+                </div>
+
+                <div class="form-group">
+                    <label for="remember-me" class="required">Lembrar de mim:</label>
+                    <input id="remember-me" name="remember-me" type="checkbox" class="form-control">
+                </div>
+
+                <button class="btn btn-primary" title="Entrar">
+                    Entrar
+                </button>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>
