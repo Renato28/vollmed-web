@@ -1,0 +1,40 @@
+<header class="header" xmlns:th="http://thymeleaf.org" th:fragment="menu"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+    <div class="container header-container">
+        <a href="../index.html" th:href="@{/}" class="logo">
+            <img src="../../static/assets/logo.png" th:src="@{/assets/logo.png}" alt="Logo Voll">
+        </a>
+
+        <nav class="main-nav">
+            <ul sec:authorize="isAuthenticated()" class="nav-left">
+                <li class="dropdown">
+                    <a href="#">CADASTROS <i class="arrow-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="../medico/listagem-medicos.html" th:href="@{/medicos}">Médicos</a>
+                        </li>
+
+                        <li>
+                            <a href="../consulta/listagem-consultas.html" th:href="@{/consultas}">Consultas</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul sec:authorize="isAuthenticated()" class="nav-right">
+                <li class="dropdown">
+                    <a href="#">Olá, <span sec:authentication="principal.nome"></span> <i class="arrow-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form class="navbar-form" th:action="@{/logout}" method="post">
+                                <button class="btn-link">SAIR</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-form" sec:authorize="!isAuthenticated()">
+                <a class="btn-link" href="#" th:href="@{/login}">Login</a>
+            </div>
+        </nav>
+    </div>
+</header>
