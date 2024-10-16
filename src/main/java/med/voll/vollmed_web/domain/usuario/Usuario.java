@@ -31,4 +31,20 @@ public class Usuario implements UserDetails {
     public String getUsername() {
         return email;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
 }
