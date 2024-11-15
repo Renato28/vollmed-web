@@ -1,9 +1,7 @@
 package med.voll.vollmed_web.domain.medico;
 
 import med.voll.vollmed_web.domain.RegraDeNegocioException;
-import med.voll.vollmed_web.domain.medico.DadosCadastroMedico;
-import med.voll.vollmed_web.domain.medico.DadosListagemMedico;
-import med.voll.vollmed_web.domain.medico.MedicoRepository;
+import med.voll.vollmed_web.domain.usuario.UsuarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,9 +13,11 @@ import java.util.List;
 public class MedicoService {
 
     private final MedicoRepository medicoRepository;
+    private final UsuarioService usuarioService;
 
-    public MedicoService(MedicoRepository medicoRepository) {
+    public MedicoService(MedicoRepository medicoRepository, UsuarioService usuarioService) {
         this.medicoRepository = medicoRepository;
+        this.usuarioService = usuarioService;
     }
 
     public Page<DadosListagemMedico> listar(Pageable paginacao) {
@@ -32,6 +32,7 @@ public class MedicoService {
 
         if (dados.id() == null) {
             medicoRepository.save(new Medico(dados));
+            usuarioService.salvarUsuario(dados.nome(), dados.email(), dados.crm());
         } else {
             var medico = medicoRepository.findById(dados.id()).orElseThrow();
             medico.atualizarDados(dados);
