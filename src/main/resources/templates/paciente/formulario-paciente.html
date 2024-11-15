@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt"
+  xmlns:th="http://thymleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{template.html}">
+<head>
+  <title>Cadastro de Pacientes</title>
+</head>
+
+<body>
+  <div layout:fragment="conteudo">
+    <main class="container">
+      <section class="card form-card">
+        <h2 class="title">Cadastro de paciente</h2>
+
+        <form method="post" action="#" th:action="@{/pacientes}" th:object="${dados}">
+          <input type="hidden" name="id" th:field="*{id}">
+          <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input id="nome" name="nome" th:field="*{nome}" required>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Erro!</div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" name="email" th:field="*{email}" required>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Erro!</div>
+          </div>
+
+          <div class="form-group">
+            <label for="telefone">Telefone:</label>
+            <input id="telefone" name="telefone" th:field="*{telefone}" required>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}">Erro!</div>
+          </div>
+
+          <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input id="cpf" name="cpf" th:field="*{cpf}" required>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">Erro!</div>
+          </div>
+
+          <div class="buttons">
+              <button type="submit" class="btn btn-primary">
+                <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Icone de adicionar" class="btn-icon">Cadastrar
+              </button>
+
+              <a href="listagem-pacientes.html" th:href="{/pacientes}" class="btn btn-secondary">
+                <img src="/static/assets/back.png" th:src="@{/assets/back.png}" alt="Voltar" class="btn-icon">Voltar
+              </a>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
