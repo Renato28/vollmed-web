@@ -8,7 +8,6 @@ import med.voll.vollmed_web.domain.paciente.DadosCadastroPaciente;
 public class Paciente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String email;
@@ -19,7 +18,8 @@ public class Paciente {
     public Paciente(){
     }
 
-    public Paciente(DadosCadastroPaciente dados) {
+    public Paciente(Long id, DadosCadastroPaciente dados) {
+        this.id = id;
         modificarDados(dados);
     }
 

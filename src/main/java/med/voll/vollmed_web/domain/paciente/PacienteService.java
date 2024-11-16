@@ -1,6 +1,7 @@
 package med.voll.vollmed_web.domain.paciente;
 
 import med.voll.vollmed_web.domain.RegraDeNegocioException;
+import med.voll.vollmed_web.domain.usuario.UsuarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final UsuarioService usuarioService;
 
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, UsuarioService usuarioService) {
         this.pacienteRepository = pacienteRepository;
+        this.usuarioService = usuarioService;
     }
 
     public Page<DadosListagemPaciente> listar(Pageable paginacao) {
@@ -26,7 +29,8 @@ public class PacienteService {
         }
 
         if (dados.id() == null) {
-            pacienteRepository.save(new Paciente(dados));
+            Long id = usuarioService.salvarUsuario(dados.nome(), dados.email(), dados.cpf());
+            pacienteRepository.save(new Paciente(id, dados));
         } else {
             var paciente = pacienteRepository.findById(dados.id()).orElseThrow();
             paciente.modificarDados(dados);
@@ -45,5 +49,6 @@ public class PacienteService {
     @Transactional
     public void excluir(Long id) {
         pacienteRepository.deleteById(id);
+        usuarioService.excluir(id);
     }
 }
