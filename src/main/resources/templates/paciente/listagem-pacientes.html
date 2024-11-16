@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt"
-  xmlns:th="http://thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{template.html}">
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
 <head>
   <title>Listagem de Pacientes</title>
 </head>
 
 <body>
-  <div layout:fragment="conteudo">
-    <main class="container">
-      <section class="card">
-        <h2 class="title">Listagem de pacientes</h2>
+<div layout:fragment="conteudo">
+  <main class="container">
+    <section class="card">
+      <h2 class="title">Listagem de pacientes</h2>
 
-        <div class="table-controls">
-          <a href="formulario-paciente.html" th:href="@{/pacientes/formulario}" class="btn btn-tertiary">
-            <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Icone de adicionar" class="btn-icon">
-            Novo Paciente
-          </a>
-        </div>
+      <div class="table-controls">
+        <a href="formulario-paciente.html" th:href="@{/pacientes/formulario}" class="btn btn-tertiary">
+          <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Ícone de adicionar" class="btn-icon">
+          Novo Paciente
+        </a>
+      </div>
 
-        <table class="tabela">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Telefone</th>
-              <th>CPF</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
+      <table class="tabela">
+        <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>CPF</th>
+          <th>Ações</th>
+        </tr>
+        </thead>
 
-          <tbody>
-            <tr th:each="paciente: ${pacientes}">
-              <td th:text="${paciente.nome}"></td>
-              <td th:text="${paciente.email}"></td>
-              <td th:text="${paciente.telefone}"></td>
-              <td th:text="${paciente.cpf}"></td>
-              <td>
-                <a href="#" class="btn btn-edit" th:href="@{/pacientes/formulario?id={id}(id=${paciente.id})}" title="Editar">
-                  <img src="/static/assets/edit.svg" th:src="@{/assets/edit.svg}" alt="Editar">
-                </a>
+        <tbody>
+        <tr th:each="paciente: ${pacientes}">
+          <td th:text="${paciente.nome}"></td>
+          <td th:text="${paciente.email}"></td>
+          <td th:text="${paciente.telefone}"></td>
+          <td th:text="${paciente.cpf}"></td>
+          <td>
+            <a href="#" class="btn btn-edit" th:href="@{/pacientes/formulario?id={id}(id=${paciente.id})}" title="Editar">
+              <img src="/static/assets/edit.svg" th:src="@{/assets/edit.svg}" alt="Editar">
+            </a>
 
-                <a href="#deleteModal" class="btn btn-delete" data-toggle="modal" th:data-id="${paciente.id}" data-url="/pacientes" title="Excluir">
-                  <img src="/static/assets/delete.svg" th:src="@{/assets/delete.svg}" alt="Excluir">
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    </main>
-  </div>
+            <a href="#deleteModal" class="btn btn-delete" data-toggle="modal" th:data-id="${paciente.id}" data-url="/pacientes" title="Excluir">
+              <img src="/static/assets/delete.svg" th:src="@{/assets/delete.svg}" alt="Excluir">
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div th:replace="~{componentes/_paginacao.html :: paginacao(url = 'pacientes', registros = ${pacientes})}"></div>
+    </section>
+  </main>
+
+  <div th:replace="~{componentes/_modal_excluir.html :: modal}"></div>
+</div>
 </body>
 </html>
