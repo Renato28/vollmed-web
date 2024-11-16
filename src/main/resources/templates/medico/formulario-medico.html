@@ -1,62 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt"
-    xmlns:th="http://thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{template.html}">
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
 <head>
     <title>Cadastro de Médicos</title>
 </head>
 
 <body>
-    <div layout:fragment="conteudo">
-        <main class="container">
-            <section class="card form-card">
-                <h2 class="title">Cadastro de médico</h2>
+<div layout:fragment="conteudo">
+    <main class="container">
+        <section class="card form-card">
+            <h2 class="title">Cadastro de médico</h2>
 
-                <form method="post" action="#" th:action="@{/medicos}" th:object="${dados}">
-                    <input type="hidden" name="id" th:field="*{id}">
+            <form method="post" action="#" th:action="@{/medicos}" th:object="${dados}">
+                <input type="hidden" name="id" th:field="*{id}">
 
-                    <div class="form-group">
-                        <label for="nome">Nome:</label>
-                        <input id="nome" name="nome" th:field="*{nome}" required>
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Erro!</div>
-                    </div>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input id="nome" name="nome" th:field="*{nome}" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Erro!</div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input id="email" name="email" th:field="*{email}" required>
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                    </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input id="email" name="email" th:field="*{email}" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="telefone">Telefone:</label>
-                        <input id="telefone" name="telefone" th:field="*{telefone}" required>
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
-                    </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input id="telefone" name="telefone" th:field="*{telefone}" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="crm">CRM:</label>
-                        <input id="crm" name="crm" th:field="*{crm}" required>
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('crm')}" th:errors="*{crm}"></div>
-                    </div>
+                <div class="form-group">
+                    <label for="crm">CRM:</label>
+                    <input id="crm" name="crm" th:field="*{crm}" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('crm')}" th:errors="*{crm}"></div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="especialidade">Especialidade</label>
-                        <select id="especialidade" name="especialidade" required th:field="*{especialidade}">
-                            <option th:value="${null}">Selecione uma especialidade</option>
-                            <option th:each="especialidade : ${especialidade}" th:value="${especialidade}" th:text="${especialidade}" th:selected="${dados.especialidade == especialidade}"></option>
-                        </select>
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}"></div>
-                    </div>
+                <div class="form-group">
+                    <label for="especialidade">Especialidade</label>
+                    <select id="especialidade" name="especialidade" required th:field="*{especialidade}">
+                        <option th:value="${null}">Selecione uma especialidade</option>
+                        <option th:each="especialidade : ${especialidades}" th:value="${especialidade}" th:text="${especialidade}" th:selected="${dados.especialidade == especialidade}"></option>
+                    </select>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}"></div>
+                </div>
 
-                    <div class="buttons">
-                        <button type="submit" class="btn btn-primary">
-                            <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Ícone de adicionar" class="btn-icon">Cadastrar
-                        </button>
-                    </div>
-                </form>
-            </section>
-        </main>
-    </div>
+                <div class="buttons">
+                    <button type="submit" class="btn btn-primary">
+                        <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Ícone de adicionar" class="btn-icon">Cadastrar
+                    </button>
+
+                    <a href="listagem-medicos.html" th:href="@{/medicos}" class="btn btn-secondary">
+                        <img src="/static/assets/back.png" th:src="@{/assets/back.png}" alt="Voltar" class="btn-icon">Voltar
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
 </body>
 </html>
