@@ -17,9 +17,10 @@ public class UsuarioService implements UserDetailsService {
         this.encriptador = encriptador;
     }
 
-    public void salvarUsuario(String nome, String email, String senha) {
+    public Long salvarUsuario(String nome, String email, String senha) {
         String senhaCriptografada = encriptador.encode(senha);
-        usuarioRepository.save(new Usuario(nome, email, senhaCriptografada));
+        Usuario usuario = usuarioRepository.save(new Usuario(nome, email, senhaCriptografada));
+        return usuario.getId();
     }
 
     @Override

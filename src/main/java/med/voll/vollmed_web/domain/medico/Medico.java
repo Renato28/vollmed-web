@@ -19,7 +19,8 @@ public class Medico {
     @Deprecated
     public Medico(){}
     
-    public Medico(DadosCadastroMedico dados) {
+    public Medico(Long id, DadosCadastroMedico dados) {
+        this.id = id;
         atualizarDados(dados);
     }
 
