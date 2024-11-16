@@ -28,4 +28,8 @@ public class UsuarioService implements UserDetailsService {
         return usuarioRepository.findByEmailIgnoreCase(username).orElseThrow(() ->
                 new UsernameNotFoundException("Usuário não foi encontrado!"));
     }
+
+    public void excluir(Long id) {
+        usuarioRepository.deleteById(id);
+    }
 }
