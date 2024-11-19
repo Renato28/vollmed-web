@@ -1,6 +1,7 @@
 package med.voll.vollmed_web.domain.paciente;
 
 import med.voll.vollmed_web.domain.RegraDeNegocioException;
+import med.voll.vollmed_web.domain.usuario.Perfil;
 import med.voll.vollmed_web.domain.usuario.UsuarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public class PacienteService {
         }
 
         if (dados.id() == null) {
-            Long id = usuarioService.salvarUsuario(dados.nome(), dados.email(), dados.cpf());
+            Long id = usuarioService.salvarUsuario(dados.nome(), dados.email(), dados.cpf(), Perfil.PACIENTE);
             pacienteRepository.save(new Paciente(id, dados));
         } else {
             var paciente = pacienteRepository.findById(dados.id()).orElseThrow();
