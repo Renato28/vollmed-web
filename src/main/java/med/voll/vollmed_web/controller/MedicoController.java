@@ -49,7 +49,12 @@ public class MedicoController {
     }
 
     @GetMapping("formulario")
-    public String carregarPaginaCadastro(Long id, Model model) {
+    public String carregarPaginaCadastro(Long id, Model model, @AuthenticationPrincipal Usuario logado) {
+
+        if (logado.getPerfil() != Perfil.ATENDENTE) {
+            return PAGINA_ERRO;
+        }
+
         if (id != null) {
             model.addAttribute("dados", medicoService.carregarPorId(id));
         } else {
@@ -60,7 +65,12 @@ public class MedicoController {
     }
 
     @PostMapping
-    public String cadastrar(@Valid @ModelAttribute("dados") DadosCadastroMedico dados, BindingResult result, Model model) {
+    public String cadastrar(@Valid @ModelAttribute("dados") DadosCadastroMedico dados, BindingResult result, Model model, @AuthenticationPrincipal Usuario logado) {
+
+        if (logado.getPerfil() != Perfil.ATENDENTE) {
+            return PAGINA_ERRO;
+        }
+
         if (result.hasErrors()) {
             model.addAttribute("dados", dados);
             return PAGINA_CADASTRO;
@@ -77,14 +87,18 @@ public class MedicoController {
     }
 
     @DeleteMapping
-    public String excluir(Long id) {
+    public String excluir(Long id, @AuthenticationPrincipal Usuario logado) {
+        if (logado.getPerfil() != Perfil.ATENDENTE) {
+            return PAGINA_ERRO;
+        }
+
         medicoService.excluir(id);
         return REDIRECT_LISTAGEM;
     }
 
     @GetMapping({"especialidade"})
     @ResponseBody
-    public List<DadosListagemMedico> listarMedicosPorEspecialidade(@PathVariable String especialidade) {
+    public List<DadosListagemMedico> listarMedicosPorEspecialidade(@PathVariable String especialidade){
         return medicoService.listarPorEspecialidade(Especialidade.valueOf(especialidade));
     }
 }
