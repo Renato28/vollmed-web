@@ -8,6 +8,7 @@ import med.voll.vollmed_web.domain.medico.Especialidade;
 import org.springframework.boot.Banner;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +41,7 @@ public class ConsultaController {
     }
 
     @GetMapping("formulario")
+    @PreAuthorize("hasRole('ATENDENTE') OR hasRole('PACIENTE')")
     public String carregarPaginaAgendaConsulta(Long id, Model model) {
         if (id != null) {
             model.addAttribute("dados", consultaService.carregarPorId(id));
@@ -51,6 +53,7 @@ public class ConsultaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ATENDENTE') OR hasRole('PACIENTE')")
     public String cadastrar(@Valid @ModelAttribute("dados") DadosAgendamentoConsulta dados, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("dados", dados);
