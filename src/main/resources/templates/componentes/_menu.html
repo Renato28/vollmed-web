@@ -29,6 +29,9 @@
                     <a href="#">Olá, <span sec:authentication="principal.nome"></span> <i class="arrow-down"></i></a>
                     <ul class="dropdown-menu">
                         <li>
+                            <div class="navbar-form">
+                                <a class="btn-link" href="#" th:href="@{/alterar-senha}">Alterar senha</a>
+                            </div>
                             <form class="navbar-form" th:action="@{/logout}" method="post">
                                 <button class="btn-link">SAIR</button>
                             </form>

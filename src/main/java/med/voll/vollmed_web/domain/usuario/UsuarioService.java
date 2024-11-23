@@ -1,5 +1,6 @@
 package med.voll.vollmed_web.domain.usuario;
 
+import med.voll.vollmed_web.domain.RegraDeNegocioException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,5 +32,17 @@ public class UsuarioService implements UserDetailsService {
 
     public void excluir(Long id) {
         usuarioRepository.deleteById(id);
+    }
+
+    public void alterarSenha(DadosAlteracaoSenha dados, Usuario logado) {
+
+        if (!encriptador.matches(dados.senhaAtual(), logado.getPassword())) {
+            throw new RegraDeNegocioException("Senha e confirmação não conferem!");
+        }
+
+        String senhaCriptografada = encriptador.encode(dados.novaSenha());
+        logado.alterarSenha(senhaCriptografada);
+
+        usuarioRepository.save(logado);
     }
 }
