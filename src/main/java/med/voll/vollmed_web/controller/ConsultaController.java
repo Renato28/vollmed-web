@@ -5,10 +5,12 @@ import med.voll.vollmed_web.domain.RegraDeNegocioException;
 import med.voll.vollmed_web.domain.consulta.ConsultaService;
 import med.voll.vollmed_web.domain.consulta.DadosAgendamentoConsulta;
 import med.voll.vollmed_web.domain.medico.Especialidade;
+import med.voll.vollmed_web.domain.usuario.Usuario;
 import org.springframework.boot.Banner;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,8 +36,8 @@ public class ConsultaController {
     }
 
     @GetMapping
-    public String carregarPaginaListagem(@PageableDefault Pageable paginacao, Model model) {
-        var consultasAtivas = consultaService.listar(paginacao);
+    public String carregarPaginaListagem(@PageableDefault Pageable paginacao, Model model, Usuario logado) {
+        var consultasAtivas = consultaService.listar(paginacao, logado);
         model.addAttribute("consultas", consultasAtivas);
         return PAGINA_LISTAGEM;
     }
@@ -54,14 +56,14 @@ public class ConsultaController {
 
     @PostMapping
     @PreAuthorize("hasRole('ATENDENTE') OR hasRole('PACIENTE')")
-    public String cadastrar(@Valid @ModelAttribute("dados") DadosAgendamentoConsulta dados, BindingResult result, Model model) {
+    public String cadastrar(@Valid @ModelAttribute("dados") DadosAgendamentoConsulta dados, BindingResult result, Model model, @AuthenticationPrincipal Usuario logado) {
         if (result.hasErrors()) {
             model.addAttribute("dados", dados);
             return PAGINA_CADASTRO;
         }
 
         try {
-            consultaService.cadastrar(dados);
+            consultaService.cadastrar(dados, logado);
             return REDIRECT_LISTAGEM;
         } catch (RegraDeNegocioException e) {
             model.addAttribute("erro", e.getMessage());
