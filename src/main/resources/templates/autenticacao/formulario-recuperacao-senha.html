@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Voll.med - Recuperar Conta</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <main class="container">
+        <div class="alert alert-success text-center text-uppercase" th:if="${param.verificar != null}">
+            <p>
+                <strong>Verifique seu email para redefinir sua senha!</strong>
+            </p>
+        </div>
+        <section class="card form-card">
+            <h2 class="title">Recuperação de conta</h2>
+            <form th:action="@{/esqueci-minha-senha}" method="post">
+                <div class="alert alert-danger text-center text-uppercase" th:if="${param.error != null}">
+                    <p>
+                        <strong>Dados inválidos!</strong>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="required">Digite o email cadastrado:</label>
+                    <input id="email" name="email" type="text" class="form-control" placeholder="email@email.com" required="required">
+                </div>
+                <button class="btn btn-primary" title="Enviar link de recuperação">
+                    Confirmar
+                </button>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>
