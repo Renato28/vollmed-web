@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt"
+  xmlns:th="https://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{template.html}">
+<head>
+  <title>Voll.med - Alterar senha</title>
+</head>
+
+<body>
+  <div layout:fragment="conteudo">
+    <main class="container">
+      <section class="card form-card">
+        <h2 class="title">Alterar senha</h2>
+
+        <form th:action="@{/recuperar-conta}" method="post" th:object="${dados}">
+          <input type="hidden" name="codigo" th:value="${param.codigo}">
+
+          <div class="alert alert-danger text-center text-uppercase" th:if="${param.error != null}">
+            <p>
+              <strong>Dados inválidos!</strong>
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="novaSenha" class="required">Nova senha:</label>
+            <input id="novaSenha" name="novaSenha" type="password" class="form-control" placeholder="Nova senha" required="required">
+          </div>
+          <div class="form-group">
+            <label for="novaSenhaConfirmacao" class="required">Confirme a nova senha:</label>
+            <input id="novaSenhaConfirmacao" name="novaSenhaConfirmacao" type="password" class="form-control" placeholder="Confirme a nova senha" required="required">
+          </div>
+
+          <button class="btn btn-primary" title="Entrar">
+              Salvar
+          </button>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
